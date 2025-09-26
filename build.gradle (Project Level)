@@ -1,45 +1,68 @@
-package com.matatu.tracker58;
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="#f0f8ff">
 
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Admin Credentials"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="30dp" />
 
-public class ChangeCredentialsActivity extends AppCompatActivity {
-    private EditText etNewUsername, etNewPassword, etConfirmPassword;
+    <EditText
+        android:id="@+id/etNewUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Username"
+        android:layout_marginBottom="15dp"
+        android:background="#FFFFFF"
+        android:padding="15dp" />
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_credentials);
-        
-        etNewUsername = findViewById(R.id.etNewUsername);
-        etNewPassword = findViewById(R.id.etNewPassword);
-        etConfirmPassword = findViewById(R.id.etConfirmPassword);
-        Button btnChange = findViewById(R.id.btnChange);
-        
-        btnChange.setOnClickListener(v -> changeCredentials());
-    }
-    
-    private void changeCredentials() {
-        String newUsername = etNewUsername.getText().toString().trim();
-        String newPassword = etNewPassword.getText().toString().trim();
-        String confirmPassword = etConfirmPassword.getText().toString().trim();
+    <EditText
+        android:id="@+id/etNewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Password"
+        android:inputType="textPassword"
+        android:layout_marginBottom="15dp"
+        android:background="#FFFFFF"
+        android:padding="15dp" />
 
-        if (newUsername.isEmpty() || newPassword.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            return;
-        }
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:layout_marginBottom="25dp"
+        android:background="#FFFFFF"
+        android:padding="15dp" />
 
-        if (!newPassword.equals(confirmPassword)) {
-            Toast.makeText(this, "Passwords don't match", Toast.LENGTH_SHORT).show();
-            return;
-        }
+    <Button
+        android:id="@+id/btnChange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Credentials"
+        android:backgroundTint="#FF9800"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:padding="15dp" />
 
-        Toast.makeText(this, 
-            "Credentials updated!\nNew Username: " + newUsername + "\nAdmin security updated.", 
-            Toast.LENGTH_LONG).show();
-        finish();
-    }
-}
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔒 Security Note: Changing credentials will update admin login information."
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:background="#FFF3E0" />
+
+</LinearLayout>
