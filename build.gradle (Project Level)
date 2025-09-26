@@ -1,24 +1,40 @@
-package com.matatu.tracker58;
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical">
 
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Driver Dashboard"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="30dp" />
 
-public class DriverActivity extends AppCompatActivity {
-    private TextView tvStatus;
-    private Button btnStartTrip;
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status: 🔴 Offline"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp" />
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver);
-        
-        tvStatus = findViewById(R.id.tvStatus);
-        btnStartTrip = findViewById(R.id.btnStartTrip);
-        
-        btnStartTrip.setOnClickListener(v -> {
-            tvStatus.setText("Status: 🟢 Online - Sharing Location");
-        });
-    }
-}
+    <Button
+        android:id="@+id/btnStartTrip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Trip"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:id="@+id/btnViewRoute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Route 58"
+        android:layout_marginBottom="10dp" />
+
+</LinearLayout>
