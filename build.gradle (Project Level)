@@ -1,49 +1,74 @@
-package com.matatu.tracker58;
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="#f0f8ff">
 
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subscription Payment"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="30dp" />
 
-public class PaymentActivity extends AppCompatActivity {
-    private RadioGroup rgSubscription;
-    private TextView tvAmount;
+    <RadioGroup
+        android:id="@+id/rgSubscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:padding="15dp">
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
-        
-        rgSubscription = findViewById(R.id.rgSubscription);
-        tvAmount = findViewById(R.id.tvAmount);
-        Button btnPay = findViewById(R.id.btnPay);
-        
-        rgSubscription.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.rbDriver) {
-                tvAmount.setText("Amount: Kshs. 500/month");
-            } else if (checkedId == R.id.rbPassenger) {
-                tvAmount.setText("Amount: Kshs. 200/month");
-            }
-        });
-        
-        btnPay.setOnClickListener(v -> processPayment());
-    }
-    
-    private void processPayment() {
-        int selectedId = rgSubscription.getCheckedRadioButtonId();
-        if (selectedId == -1) {
-            Toast.makeText(this, "Please select subscription type", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        
-        String amount = selectedId == R.id.rbDriver ? "500" : "200";
-        String userType = selectedId == R.id.rbDriver ? "driver" : "passenger";
-        
-        Toast.makeText(this, 
-            "M-Pesa Payment:\nSend Kshs. " + amount + " to 0708888630\n\n" +
-            "User: " + userType + " subscription", 
-            Toast.LENGTH_LONG).show();
-    }
-}
+        <RadioButton
+            android:id="@+id/rbDriver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🚗 Driver Subscription - Kshs. 500/month"
+            android:textSize="16sp"
+            android:layout_marginBottom="10dp" />
+
+        <RadioButton
+            android:id="@+id/rbPassenger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👤 Passenger Subscription - Kshs. 200/month"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amount: Please select above"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#4CAF50" />
+
+    <Button
+        android:id="@+id/btnPay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📱 Pay via M-Pesa"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="M-Pesa Instructions:\n1. Go to M-Pesa\n2. Lipa Na M-Pesa\n3. Business No: 0708888630\n4. Enter Amount\n5. Enter PIN"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:background="#E8F5E8" />
+
+</LinearLayout>
