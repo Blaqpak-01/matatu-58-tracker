@@ -1,35 +1,56 @@
-package com.matatu.tracker58;
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="#f0f8ff">
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Passenger Dashboard"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="30dp" />
 
-public class PassengerActivity extends AppCompatActivity {
-    private TextView tvStatus;
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status: Ready to find Matatu"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:padding="10dp"
+        android:background="#FFFFFF" />
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passenger);
-        
-        tvStatus = findViewById(R.id.tvStatus);
-        Button btnFindMatatu = findViewById(R.id.btnFindMatatu);
-        Button btnViewMap = findViewById(R.id.btnViewMap);
-        
-        btnFindMatatu.setOnClickListener(v -> {
-            tvStatus.setText("🔍 Finding nearest Matatu 58...");
-            // Simulate search
-            new android.os.Handler().postDelayed(() -> {
-                tvStatus.setText("✅ Nearest Matatu: 5 mins away");
-            }, 2000);
-        });
-        
-        btnViewMap.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MapActivity.class);
-            intent.putExtra("show_drivers", true);
-            startActivity(intent);
-        });
-    }
-}
+    <Button
+        android:id="@+id/btnFindMatatu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔍 Find Nearest Matatu"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#2196F3"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btnViewMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🗺️ Live Tracking Map"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btnPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💳 Subscription (Kshs. 200/month)"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#FF9800"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>
