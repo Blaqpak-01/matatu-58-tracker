@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Matatu 58 Tracker</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="admin">Admin</string>
+    <string name="driver">Driver</string>
+    <string name="passenger">Passenger</string>
+    <string name="subscription">Subscription</string>
+    <string name="mpesa_payment">M-Pesa Payment</string>
+    <string name="tracking">Tracking</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+</resources>
