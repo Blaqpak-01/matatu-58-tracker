@@ -1,100 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical"
-    android:background="#f0f8ff">
+package com.matatu.tracker58;
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="User Profile"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="30dp" />
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FFFFFF"
-        android:padding="20dp">
+public class SignUpActivity extends AppCompatActivity {
+    private EditText etUsername, etPassword, etConfirmPassword, etPhone;
+    private RadioGroup rgUserType;
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signup);
+        
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
+        etPhone = findViewById(R.id.etPhone);
+        rgUserType = findViewById(R.id.rgUserType);
+        Button btnSignUp = findViewById(R.id.btnSignUp);
+        
+        btnSignUp.setOnClickListener(v -> handleSignUp());
+    }
+    
+    private void handleSignUp() {
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        String confirmPassword = etConfirmPassword.getText().toString().trim();
+        String phone = etPhone.getText().toString().trim();
+        String userType = getSelectedUserType();
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Username:"
-                android:textStyle="bold"
-                android:textSize="16sp" />
+        if (username.isEmpty() || password.isEmpty() || phone.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            <TextView
-                android:id="@+id/tvUsername"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Allan"
-                android:textSize="16sp" />
+        if (!password.equals(confirmPassword)) {
+            Toast.makeText(this, "Passwords don't match", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        </LinearLayout>
+        if (userType.isEmpty()) {
+            Toast.makeText(this, "Please select user type", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="User Type:"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvUserType"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Administrator"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Subscription:"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvSubscription"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Active"
-                android:textColor="#4CAF50"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</LinearLayout>
+        Toast.makeText(this, "Account created! Please subscribe.", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+    
+    private String getSelectedUserType() {
+        int selectedId = rgUserType.getCheckedRadioButtonId();
+        if (selectedId == R.id.rbDriver) return "driver";
+        if (selectedId == R.id.rbPassenger) return "passenger";
+        return "";
+    }
+}
