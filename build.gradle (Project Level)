@@ -1,40 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical">
+package com.matatu.tracker58.models;
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Driver Dashboard"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="30dp" />
+public class User {
+    private String username;
+    private String password;
+    private String userType;
+    private String phone;
+    private boolean isSubscribed;
 
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Status: 🔴 Offline"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:layout_marginBottom="20dp" />
+    public User() {}
 
-    <Button
-        android:id="@+id/btnStartTrip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Trip"
-        android:layout_marginBottom="10dp" />
+    public User(String username, String password, String userType, String phone) {
+        this.username = username;
+        this.password = password;
+        this.userType = userType;
+        this.phone = phone;
+        this.isSubscribed = false;
+    }
 
-    <Button
-        android:id="@+id/btnViewRoute"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Route 58"
-        android:layout_marginBottom="10dp" />
-
-</LinearLayout>
+    // Getters and setters
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public String getUserType() { return userType; }
+    public void setUserType(String userType) { this.userType = userType; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+    public boolean isSubscribed() { return isSubscribed; }
+    public void setSubscribed(boolean subscribed) { isSubscribed = subscribed; }
+}
