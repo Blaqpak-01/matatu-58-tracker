@@ -1,0 +1,49 @@
+package com.matatu.tracker58;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class PaymentActivity extends AppCompatActivity {
+    private RadioGroup rgSubscription;
+    private TextView tvAmount;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_payment);
+        
+        rgSubscription = findViewById(R.id.rgSubscription);
+        tvAmount = findViewById(R.id.tvAmount);
+        Button btnPay = findViewById(R.id.btnPay);
+        
+        rgSubscription.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.rbDriver) {
+                tvAmount.setText("Amount: Kshs. 500/month");
+            } else if (checkedId == R.id.rbPassenger) {
+                tvAmount.setText("Amount: Kshs. 200/month");
+            }
+        });
+        
+        btnPay.setOnClickListener(v -> processPayment());
+    }
+    
+    private void processPayment() {
+        int selectedId = rgSubscription.getCheckedRadioButtonId();
+        if (selectedId == -1) {
+            Toast.makeText(this, "Please select subscription type", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        String amount = selectedId == R.id.rbDriver ? "500" : "200";
+        String userType = selectedId == R.id.rbDriver ? "driver" : "passenger";
+        
+        Toast.makeText(this, 
+            "M-Pesa Payment:\nSend Kshs. " + amount + " to 0708888630\n\n" +
+            "User: " + userType + " subscription", 
+            Toast.LENGTH_LONG).show();
+    }
+}

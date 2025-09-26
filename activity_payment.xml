@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="#f0f8ff">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subscription Payment"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="30dp" />
+
+    <RadioGroup
+        android:id="@+id/rgSubscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:padding="15dp">
+
+        <RadioButton
+            android:id="@+id/rbDriver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🚗 Driver Subscription - Kshs. 500/month"
+            android:textSize="16sp"
+            android:layout_marginBottom="10dp" />
+
+        <RadioButton
+            android:id="@+id/rbPassenger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👤 Passenger Subscription - Kshs. 200/month"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amount: Please select above"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#4CAF50" />
+
+    <Button
+        android:id="@+id/btnPay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📱 Pay via M-Pesa"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="M-Pesa Instructions:\n1. Go to M-Pesa\n2. Lipa Na M-Pesa\n3. Business No: 0708888630\n4. Enter Amount\n5. Enter PIN"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:background="#E8F5E8" />
+
+</LinearLayout>
