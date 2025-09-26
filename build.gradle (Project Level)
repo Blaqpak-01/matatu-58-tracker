@@ -1,68 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical"
-    android:background="#f0f8ff">
+package com.matatu.tracker58.database;
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Change Admin Credentials"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="30dp" />
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import com.matatu.tracker58.models.User;
 
-    <EditText
-        android:id="@+id/etNewUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="New Username"
-        android:layout_marginBottom="15dp"
-        android:background="#FFFFFF"
-        android:padding="15dp" />
+public class DatabaseHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "MatatuTracker.db";
+    private static final int DATABASE_VERSION = 1;
 
-    <EditText
-        android:id="@+id/etNewPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="New Password"
-        android:inputType="textPassword"
-        android:layout_marginBottom="15dp"
-        android:background="#FFFFFF"
-        android:padding="15dp" />
+    private static final String TABLE_USERS = "users";
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_USERNAME = "username";
+    private static final String COLUMN_PASSWORD = "password";
+    private static final String COLUMN_USER_TYPE = "user_type";
 
-    <EditText
-        android:id="@+id/etConfirmPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:layout_marginBottom="25dp"
-        android:background="#FFFFFF"
-        android:padding="15dp" />
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
-    <Button
-        android:id="@+id/btnChange"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Update Credentials"
-        android:backgroundTint="#FF9800"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:padding="15dp" />
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_USERNAME + " TEXT,"
+                + COLUMN_PASSWORD + " TEXT,"
+                + COLUMN_USER_TYPE + " TEXT" + ")";
+        db.execSQL(CREATE_USERS_TABLE);
+    }
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="🔒 Security Note: Changing credentials will update admin login information."
-        android:textSize="12sp"
-        android:textColor="#666666"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"
-        android:background="#FFF3E0" />
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        onCreate(db);
+    }
 
-</LinearLayout>
+    public boolean addUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USERNAME, user.getUsername());
+        values.put(COLUMN_PASSWORD, user.getPassword());
+        values.put(COLUMN_USER_TYPE, user.getUserType());
+
+        long result = db.insert(TABLE_USERS, null, values);
+        return result != -1;
+    }
+
+    public User getUser(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USERS, new String[]{COLUMN_USERNAME, COLUMN_USER_TYPE},
+                COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?",
+                new String[]{username, password}, null, null, null);
+
+        User user = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            user = new User();
+            user.setUsername(cursor.getString(0));
+            user.setUserType(cursor.getString(1));
+            cursor.close();
+        }
+        return user;
+    }
+}
