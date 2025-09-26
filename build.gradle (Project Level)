@@ -1,56 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical"
-    android:background="#f0f8ff">
+package com.matatu.tracker58;
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Passenger Dashboard"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="30dp" />
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Status: Ready to find Matatu"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"
-        android:padding="10dp"
-        android:background="#FFFFFF" />
+public class PaymentActivity extends AppCompatActivity {
+    private RadioGroup rgSubscription;
+    private TextView tvAmount;
 
-    <Button
-        android:id="@+id/btnFindMatatu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="🔍 Find Nearest Matatu"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="#2196F3"
-        android:textColor="#FFFFFF" />
-
-    <Button
-        android:id="@+id/btnViewMap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="🗺️ Live Tracking Map"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="#4CAF50"
-        android:textColor="#FFFFFF" />
-
-    <Button
-        android:id="@+id/btnPayment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="💳 Subscription (Kshs. 200/month)"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="#FF9800"
-        android:textColor="#FFFFFF" />
-
-</LinearLayout>
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_payment);
+        
+        rgSubscription = findViewById(R.id.rgSubscription);
+        tvAmount = findViewById(R.id.tvAmount);
+        Button btnPay = findViewById(R.id.btnPay);
+        
+        rgSubscription.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.rbDriver) {
+                tvAmount.setText("Amount: Kshs. 500/month");
+            } else if (checkedId == R.id.rbPassenger) {
+                tvAmount.setText("Amount: Kshs. 200/month");
+            }
+        });
+        
+        btnPay.setOnClickListener(v -> processPayment());
+    }
+    
+    private void processPayment() {
+        int selectedId = rgSubscription.getCheckedRadioButtonId();
+        if (selectedId == -1) {
+            Toast.makeText(this, "Please select subscription type", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        String amount = selectedId == R.id.rbDriver ? "500" : "200";
+        String userType = selectedId == R.id.rbDriver ? "driver" : "passenger";
+        
+        Toast.makeText(this, 
+            "M-Pesa Payment:\nSend Kshs. " + amount + " to 0708888630\n\n" +
+            "User: " + userType + " subscription", 
+            Toast.LENGTH_LONG).show();
+    }
+}
