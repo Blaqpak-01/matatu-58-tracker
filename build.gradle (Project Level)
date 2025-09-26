@@ -1,17 +1,4 @@
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-rootProject.name = "Matatu58Tracker"
-include ':app'
+org.gradle.jvmargs=-Xmx2048m
+android.useAndroidX=true
+android.enableJetifier=true
+kotlin.code.style=official
