@@ -1,31 +1,35 @@
-package com.matatu.tracker58.models;
+package com.matatu.tracker58;
 
-public class User {
-    private String username;
-    private String password;
-    private String userType;
-    private String phone;
-    private boolean isSubscribed;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 
-    public User() {}
+public class PassengerActivity extends AppCompatActivity {
+    private TextView tvStatus;
 
-    public User(String username, String password, String userType, String phone) {
-        this.username = username;
-        this.password = password;
-        this.userType = userType;
-        this.phone = phone;
-        this.isSubscribed = false;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_passenger);
+        
+        tvStatus = findViewById(R.id.tvStatus);
+        Button btnFindMatatu = findViewById(R.id.btnFindMatatu);
+        Button btnViewMap = findViewById(R.id.btnViewMap);
+        
+        btnFindMatatu.setOnClickListener(v -> {
+            tvStatus.setText("🔍 Finding nearest Matatu 58...");
+            // Simulate search
+            new android.os.Handler().postDelayed(() -> {
+                tvStatus.setText("✅ Nearest Matatu: 5 mins away");
+            }, 2000);
+        });
+        
+        btnViewMap.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MapActivity.class);
+            intent.putExtra("show_drivers", true);
+            startActivity(intent);
+        });
     }
-
-    // Getters and setters
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-    public String getUserType() { return userType; }
-    public void setUserType(String userType) { this.userType = userType; }
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
-    public boolean isSubscribed() { return isSubscribed; }
-    public void setSubscribed(boolean subscribed) { isSubscribed = subscribed; }
 }
